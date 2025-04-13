@@ -14,7 +14,7 @@ const ADMIN_CREDENTIALS = [
 let htmlScanner;
 let scanningActive = false;
 let studentRecords = JSON.parse(localStorage.getItem('studentRecords')) || [];
-let currentUser = null;
+
 let currentQRCode = null;
 
 // =====================
@@ -111,7 +111,7 @@ function handleLogin() {
     );
 
     if (validAdmin) {
-        currentUser = username;
+        
         showLoginMessage("", "success");
         switchToSection('dashboard');
     } else {
@@ -125,7 +125,7 @@ function showLoginMessage(message, type) {
 }
 
 function logout() {
-    currentUser = null;
+    
     switchToSection('login');
     if (htmlScanner) {
         htmlScanner.clear().catch(console.error);
@@ -160,6 +160,10 @@ function switchToSection(section) {
         case 'generate':
             generateContainer.style.display = 'block';
             resetQRForm();
+            break;
+        default:
+            // optional: log or handle unexpected input
+            console.warn('Unexpected value in switch:', section);
             break;
     }
 }
